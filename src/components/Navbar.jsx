@@ -17,9 +17,9 @@ function Navbar() {
       
       {isMenuOpen && (
         <nav className="Navbar-menu">
-          <img src="ava.jpg" alt="Your avatar" />
-          <p>Your Name</p>
-          <p>your-email@example.com</p>
+          <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: 'gray' }}></div>
+          <p>Диана</p>
+          <p>diana@example.com</p>
 
           <ul>
             <li><Link to="/">Список постов</Link></li>

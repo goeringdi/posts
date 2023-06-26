@@ -4,7 +4,7 @@ const API_URL = 'https://jsonplaceholder.typicode.com';
 
 export const getPost = (id) => axios.get(`${API_URL}/posts/${id}`);
 
-export const getPosts = () => axios.get(`${API_URL}/posts`);
+export const getPosts = (page = 1, limit = 10) => axios.get(`${API_URL}/posts?_page=${page}&_limit=${limit}`);
 
 export const getUserPosts = (userId) => axios.get(`${API_URL}/posts?userId=${userId}`);
 
