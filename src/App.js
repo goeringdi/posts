@@ -1,16 +1,21 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
-import UserDetailPage from "./pages/UserDetailPage";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Posts from './pages/HomePage';
+import AboutMe from './pages/AboutPage';
+import UserDetails from './pages/UserDetailPage';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/about" component={AboutPage} />
-        <Route path="/users/:id" component={UserDetailPage} />
-      </Switch>
-    </Router>
+    <div className="App">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Posts />} />
+        <Route path="/about-me" element={<AboutMe />} />
+        <Route path="/user-details/:userId" element={<UserDetails />} />
+      </Routes>
+    </div>
   );
 }
+
+export default App;
