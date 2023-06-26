@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts } from '../api/api';
+import { getPosts, getUserPosts } from '../api/api';
 import Comments from '../components/Comments';
 
-const PostList = () => {
+const PostList = ({ userId }) => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchPosts = async () => {
-    setIsLoading(true);
-    const response = await getPosts(page, 10);
-    setTimeout(() => {
-      setPosts(response.data);
-      setIsLoading(false);
-    }, 500);
-  }
-
   useEffect(() => {
+    const fetchPosts = async () => {
+      setIsLoading(true);
+      let response;
+      if (userId) {
+        response = await getUserPosts(userId);
+      } else {
+        response = await getPosts(page, 10);
+      }
+      setTimeout(() => {
+        setPosts(response.data);
+        setIsLoading(false);
+      }, 500);
+    }
+  
     fetchPosts();
-  }, [page]);
-
+  }, [page, userId]);
+  
   const handleNextPage = () => {
     setPage(prevPage => prevPage + 1);
   };
