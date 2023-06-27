@@ -24,7 +24,9 @@ function CustomNavbar() {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="me-auto flex-column">
-            <div style={{ width: '30px', height: '30px', borderRadius: '50%', marginBottom: '20px', backgroundColor: 'gray' }}></div>
+            <Link to="/about-me"> {/* Аватар теперь является ссылкой */}
+              <div style={{ width: '30px', height: '30px', borderRadius: '50%', marginBottom: '20px', backgroundColor: 'gray' }}></div>
+            </Link>
             <p>Диана</p>
             <p>diana@example.com</p>
             <Nav.Link as={Link} to="/">Список постов</Nav.Link>
