@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getComments } from '../api/api';
+import { Button, Card } from 'react-bootstrap';
 
 const Comments = ({ postId }) => {
   const [comments, setComments] = useState([]);
@@ -20,14 +21,16 @@ const Comments = ({ postId }) => {
 
   return (
     <div>
-      <button onClick={handleShowComments}>
+      <Button variant="primary" onClick={handleShowComments}>
         {showComments ? 'Скрыть' : 'Показать'} комментарии
-      </button>
+      </Button>
       {showComments && comments.map(comment => (
-        <div key={comment.id}>
-          <h4>{comment.email}</h4>
-          <p>{comment.body}</p>
-        </div>
+        <Card key={comment.id} className="mt-2">
+          <Card.Header>{comment.email}</Card.Header>
+          <Card.Body>
+            <Card.Text>{comment.body}</Card.Text>
+          </Card.Body>
+        </Card>
       ))}
     </div>
   );
