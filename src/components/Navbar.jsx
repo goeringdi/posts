@@ -1,34 +1,39 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import './Navbar.css'; // Импорт стилей, если они есть
+import { Navbar, Nav, Button, Offcanvas, Container } from 'react-bootstrap';
 
-function Navbar() {
+function CustomNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const handleToggle = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="Navbar">
-      <button onClick={toggleMenu}>
-        {isMenuOpen ? 'Close menu' : 'Open menu'}
-      </button>
-      
-      {isMenuOpen && (
-        <nav className="Navbar-menu">
-          <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: 'gray' }}></div>
-          <p>Диана</p>
-          <p>diana@example.com</p>
+    <>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="#home"></Navbar.Brand>
+          <div className="ms-auto">
+            <Button variant="outline-success" onClick={handleToggle}>Меню</Button>
+          </div>
+        </Container>
+      </Navbar>
 
-          <ul>
-            <li><Link to="/">Список постов</Link></li>
-            <li><Link to="/about-me">Обо мне</Link></li>
-          </ul>
-        </nav>
-      )}
-    </header>
+      <Offcanvas show={isMenuOpen} onHide={handleToggle} placement="end">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Меню</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Nav className="me-auto flex-column">
+            <div style={{ width: '30px', height: '30px', borderRadius: '50%', marginBottom: '20px', backgroundColor: 'gray' }}></div>
+            <p>Диана</p>
+            <p>diana@example.com</p>
+            <Nav.Link as={Link} to="/">Список постов</Nav.Link>
+            <Nav.Link as={Link} to="/about-me">Обо мне</Nav.Link>
+          </Nav>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 }
 
-export default Navbar;
+export default CustomNavbar;

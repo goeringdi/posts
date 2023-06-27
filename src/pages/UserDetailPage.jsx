@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUserDetails } from '../api/api';
 import PostList from './HomePage';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 const UserDetails = () => {
   const { userId } = useParams();
@@ -28,13 +29,17 @@ const UserDetails = () => {
   };
 
   return (
-    <div>
-      <h1>{user.name}</h1>
-      <p>{user.email}</p>
-      <p>{user.address.city}</p>
-      <PostList userId={userId} />
-      <button onClick={goBack}>Back</button>
-    </div>
+    <Container>
+      <Row className="justify-content-center mt-3">
+        <Col xs={12} sm={8}>
+          <h1>{user.name}</h1>
+          <p>{user.email}</p>
+          <p>{user.address.city}</p>
+          <PostList userId={userId} />
+          <Button variant="primary" onClick={goBack}>Back</Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
