@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPosts, getUserPosts } from '../api/api';
-import { Button, Card, Spinner, Container, Row, Col } from 'react-bootstrap';
+import { Button, Card, Spinner, Container, Row, Col, Alert } from 'react-bootstrap';
 import Comments from '../components/Comments';
 
 const PostList = ({ userId }) => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);  
 
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
-      let response;
-      if (userId) {
-        response = await getUserPosts(userId);
-      } else {
-        response = await getPosts(page, 10);
-      }
-      setTimeout(() => {
-        setPosts(response.data);
+      setError(null);  
+      try {
+        let response;
+        if (userId) {
+          response = await getUserPosts(userId);
+        } else {
+          response = await getPosts(page, 10);
+        }
+        setTimeout(() => {
+          setPosts(response.data);
+          setIsLoading(false);
+        }, 500);
+      } catch (err) {
+        setError(err.message); 
         setIsLoading(false);
-      }, 500);
+      }
     }
 
     fetchPosts();
@@ -38,9 +45,16 @@ const PostList = ({ userId }) => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="d-flex justify-content-center">
+        <Spinner animation="border" role="status" />
+      </div>
+    )
   }
 
+  if (error) {
+    return <Alert variant='danger'>{error}</Alert>
+  }
   return (
     <Container>
       <Row className="justify-content-md-center mt-3">
