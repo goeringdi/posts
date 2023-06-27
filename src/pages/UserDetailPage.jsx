@@ -51,7 +51,7 @@ const UserDetails = () => {
               <p>{user.email}</p>
               <p>{user.address.city}</p>
               <PostList userId={userId} />
-              <Button variant="primary" onClick={goBack}>Back</Button>
+              <Button variant="primary" onClick={goBack} style={{marginBottom: '20px', marginTop: '20px', marginLeft: '20px', width: '120px' }}>На главную</Button>
             </>
           )}
         </Col>
